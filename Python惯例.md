@@ -1,49 +1,49 @@
-## Python惯例
+## Python慣例
 
-“惯例”这个词指的是“习惯的做法，常规的办法，一贯的做法”，与这个词对应的英文单词叫“idiom”。由于Python跟其他很多编程语言在语法和使用上还是有比较显著的差别，因此作为一个Python开发者如果不能掌握这些惯例，就无法写出“Pythonic”的代码。下面我们总结了一些在Python开发中的惯用的代码。
+“慣例”這個詞指的是“習慣的做法，常規的辦法，一貫的做法”，與這個詞對應的英文單詞叫“idiom”。由於Python跟其他很多程式語言在語法和使用上還是有比較顯著的差別，因此作為一個Python開發者如果不能掌握這些慣例，就無法寫出“Pythonic”的程式碼。下面我們總結了一些在Python開發中的慣用的程式碼。
 
-1. 让代码既可以被导入又可以被执行。
+1. 讓程式碼既可以被匯入又可以被執行。
 
    ```Python
    if __name__ == '__main__':
    ```
 
 
-2. 用下面的方式判断逻辑“真”或“假”。
+2. 用下面的方式判斷邏輯“真”或“假”。
 
    ```Python
    if x:
    if not x:
    ```
 
-   **好**的代码：
+   **好**的程式碼：
 
    ```Python
    name = 'jackfrued'
    fruits = ['apple', 'orange', 'grape']
-   owners = {'1001': '骆昊', '1002': '王大锤'}
+   owners = {'1001': '駱昊', '1002': '王大錘'}
    if name and fruits and owners:
        print('I love fruits!')
    ```
 
-   **不好**的代码：
+   **不好**的程式碼：
 
    ```Python
    name = 'jackfrued'
    fruits = ['apple', 'orange', 'grape']
-   owners = {'1001': '骆昊', '1002': '王大锤'}
+   owners = {'1001': '駱昊', '1002': '王大錘'}
    if name != '' and len(fruits) > 0 and owners != {}:
        print('I love fruits!')
    ```
 
-3. 善于使用in运算符。
+3. 善於使用in運算子。
 
    ```Python
    if x in items: # 包含
    for x in items: # 迭代
    ```
 
-   **好**的代码：
+   **好**的程式碼：
 
    ```Python
    name = 'Hao LUO'
@@ -51,7 +51,7 @@
        print('The name has an L in it.')
    ```
 
-   **不好**的代码：
+   **不好**的程式碼：
 
    ```Python
    name = 'Hao LUO'
@@ -59,15 +59,15 @@
        print('This name has an L in it!')
    ```
 
-4. 不使用临时变量交换两个值。
+4. 不使用臨時變數交換兩個值。
 
    ```Python
    a, b = b, a
    ```
 
-5. 用序列构建字符串。
+5. 用序列構建字串。
 
-   **好**的代码：
+   **好**的程式碼：
 
    ```Python
    chars = ['j', 'a', 'c', 'k', 'f', 'r', 'u', 'e', 'd']
@@ -75,7 +75,7 @@
    print(name)  # jackfrued
    ```
 
-   **不好**的代码：
+   **不好**的程式碼：
 
    ```Python
    chars = ['j', 'a', 'c', 'k', 'f', 'r', 'u', 'e', 'd']
@@ -85,13 +85,13 @@
    print(name)  # jackfrued
    ```
 
-6. EAFP优于LBYL。
+6. EAFP優於LBYL。
 
    EAFP - **E**asier to **A**sk **F**orgiveness than **P**ermission.
 
    LBYL - **L**ook **B**efore **Y**ou **L**eap.
 
-   **好**的代码：
+   **好**的程式碼：
 
    ```Python
    d = {'x': '5'}
@@ -102,7 +102,7 @@
        value = None
    ```
 
-   **不好**的代码：
+   **不好**的程式碼：
 
    ```Python
    d = {'x': '5'}
@@ -114,9 +114,9 @@
        value = None
    ```
 
-7. 使用enumerate进行迭代。
+7. 使用enumerate進行迭代。
 
-   **好**的代码：
+   **好**的程式碼：
 
    ```Python
    fruits = ['orange', 'grape', 'pitaya', 'blueberry']
@@ -124,7 +124,7 @@
    	print(index, ':', fruit)
    ```
 
-   **不好**的代码：
+   **不好**的程式碼：
 
    ```Python
    fruits = ['orange', 'grape', 'pitaya', 'blueberry']
@@ -136,7 +136,7 @@
 
 8. 用生成式生成列表。
 
-   **好**的代码：
+   **好**的程式碼：
 
    ```Python
    data = [7, 20, 3, 15, 11]
@@ -144,7 +144,7 @@
    print(result)  # [60, 45, 33]
    ```
 
-   **不好**的代码：
+   **不好**的程式碼：
 
    ```Python
    data = [7, 20, 3, 15, 11]
@@ -155,27 +155,27 @@
    print(result)  # [60, 45, 33]
    ```
 
-9. 用zip组合键和值来创建字典。
+9. 用zip組合鍵和值來建立字典。
 
-   **好**的代码：
+   **好**的程式碼：
 
    ```Python
    keys = ['1001', '1002', '1003']
-   values = ['骆昊', '王大锤', '白元芳']
+   values = ['駱昊', '王大錘', '白元芳']
    d = dict(zip(keys, values))
    print(d)
    ```
 
-   **不好**的代码：
+   **不好**的程式碼：
 
    ```Python
    keys = ['1001', '1002', '1003']
-   values = ['骆昊', '王大锤', '白元芳']
+   values = ['駱昊', '王大錘', '白元芳']
    d = {}
    for i, key in enumerate(keys):
        d[key] = values[i]
    print(d)
    ```
 
-> **说明**：这篇文章的内容来自于网络，有兴趣的读者可以阅读[原文](http://safehammad.com/downloads/python-idioms-2014-01-16.pdf)。
+> **說明**：這篇文章的內容來自於網路，有興趣的讀者可以閱讀[原文](http://safehammad.com/downloads/python-idioms-2014-01-16.pdf)。
 

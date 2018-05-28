@@ -1,4 +1,4 @@
-## Django 2.x实战(05) - Cookie和会话
+## Django 2.x實戰(05) - Cookie和會話
 
 
 

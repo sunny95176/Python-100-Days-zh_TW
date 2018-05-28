@@ -1,10 +1,10 @@
-## Django 2.x实战(02) - 深入模型
+## Django 2.x實戰(02) - 深入模型
 
-在上一个章节中，我们提到了Django是一个基于MVC架构的Web框架，MVC架构要追求的是模型和视图的解耦合，而其中的模型说得更直白一些就是数据，所以通常也被称作数据模型。在实际的项目中，数据模型通常通过数据库实现持久化操作，而关系型数据库在很长一段时间都是持久化的首选方案，在我们的OA项目中，我们选择使用MySQL来实现数据持久化。
+在上一個章節中，我們提到了Django是一個基於MVC架構的Web框架，MVC架構要追求的是模型和檢視的解耦合，而其中的模型說得更直白一些就是資料，所以通常也被稱作資料模型。在實際的專案中，資料模型通常通過資料庫實現持久化操作，而關係型資料庫在很長一段時間都是持久化的首選方案，在我們的OA專案中，我們選擇使用MySQL來實現資料持久化。
 
-### 配置关系型数据库MySQL 
+### 配置關係型資料庫MySQL 
 
-1. 进入oa文件夹，修改项目的settings.py文件，首先将我们之前创建的应用hrs添加已安装的项目中，然后配置MySQL作为持久化方案。
+1. 進入oa資料夾，修改專案的settings.py檔案，首先將我們之前建立的應用hrs新增已安裝的專案中，然後配置MySQL作為持久化方案。
 
    ```Shell
    (venv)$ cd oa
@@ -12,7 +12,7 @@
    ```
 
    ```Python
-   # 此处省略上面的代码
+   # 此處省略上面的程式碼
    
    INSTALLED_APPS = [
        'django.contrib.admin',
@@ -35,27 +35,27 @@
        }
    }
    
-   # 此处省略下面的代码
+   # 此處省略下面的程式碼
    ```
 
-   在配置ENGINE属性时，常用的可选值包括：
+   在配置ENGINE屬性時，常用的可選值包括：
 
-   - `'django.db.backends.sqlite3'`：SQLite嵌入式数据库
-   - `'django.db.backends.postgresql'`：BSD许可证下发行的开源关系型数据库产品
-   - `'django.db.backends.mysql'`：转手多次目前属于甲骨文公司的经济高效的数据库产品
-   - `'django.db.backends.oracle'`：甲骨文公司的旗舰关系型数据库产品
+   - `'django.db.backends.sqlite3'`：SQLite嵌入式資料庫
+   - `'django.db.backends.postgresql'`：BSD許可證下發行的開源關係型資料庫產品
+   - `'django.db.backends.mysql'`：轉手多次目前屬於甲骨文公司的經濟高效的資料庫產品
+   - `'django.db.backends.oracle'`：甲骨文公司的旗艦關係型資料庫產品
 
-   其他的配置可以参考官方文档中[数据库配置](https://docs.djangoproject.com/zh-hans/2.0/ref/databases/#third-party-notes)的部分。
+   其他的配置可以參考官方文件中[資料庫配置](https://docs.djangoproject.com/zh-hans/2.0/ref/databases/#third-party-notes)的部分。
 
-   NAME属性代表数据库的名称，如果使用SQLite它对应着一个文件，在这种情况下NAME的属性值应该是一个绝对路径。如果使用其他关系型数据库，还要配置对应的HOST（主机）、PORT（端口）、USER（用户名）、PASSWORD（口令）等属性。
+   NAME屬性代表資料庫的名稱，如果使用SQLite它對應著一個檔案，在這種情況下NAME的屬性值應該是一個絕對路徑。如果使用其他關係型資料庫，還要配置對應的HOST（主機）、PORT（埠）、USER（使用者名稱）、PASSWORD（口令）等屬性。
 
-2. 安装MySQL客户端工具，Python 3中使用PyMySQL，Python 2中用MySQLdb。
+2. 安裝MySQL客戶端工具，Python 3中使用PyMySQL，Python 2中用MySQLdb。
 
    ```Shell
    (venv)$ pip install pymysql
    ```
 
-   如果使用Python 3需要修改**项目**的`__init__.py`文件并加入如下所示的代码，这段代码的作用是将PyMySQL视为MySQLdb来使用，从而避免Django找不到连接MySQL的客户端工具而询问你：“Did you install mysqlclient? ”（你安装了mysqlclient吗？）。
+   如果使用Python 3需要修改**專案**的`__init__.py`檔案並加入如下所示的程式碼，這段程式碼的作用是將PyMySQL視為MySQLdb來使用，從而避免Django找不到連線MySQL的客戶端工具而詢問你：“Did you install mysqlclient? ”（你安裝了mysqlclient嗎？）。
 
    ```Python
    import pymysql
@@ -63,7 +63,7 @@
    pymysql.install_as_MySQLdb()
    ```
 
-3. 运行manage.py并指定migrate参数实现数据库迁移，为应用程序创建对应的数据表，当然在此之前需要**先启动MySQL数据库服务器并创建名为oa的数据库**，在MySQL中创建数据库的语句如下所示。
+3. 執行manage.py並指定migrate引數實現資料庫遷移，為應用程式建立對應的資料表，當然在此之前需要**先啟動MySQL資料庫伺服器並建立名為oa的資料庫**，在MySQL中建立資料庫的語句如下所示。
 
    ```SQL
    drop database if exists oa;
@@ -92,7 +92,7 @@
      Applying sessions.0001_initial... OK
    ```
 
-4. 可以看到，Django帮助我们创建了10张表，这些都是使用Django框架需要的东西，稍后我们就会用到这些表。除此之外，我们还应该为我们自己的应用创建数据模型。如果要在hrs应用中实现对部门和员工的管理，我们可以创建如下所示的数据模型。
+4. 可以看到，Django幫助我們建立了10張表，這些都是使用Django框架需要的東西，稍後我們就會用到這些表。除此之外，我們還應該為我們自己的應用建立資料模型。如果要在hrs應用中實現對部門和員工的管理，我們可以建立如下所示的資料模型。
 
    ```Shell
    (venv)$ cd hrs
@@ -104,36 +104,36 @@
    
    
    class Dept(models.Model):
-       """部门类"""
+       """部門類"""
        
-       no = models.IntegerField(primary_key=True, db_column='dno', verbose_name='部门编号')
-       name = models.CharField(max_length=20, db_column='dname', verbose_name='部门名称')
-       location = models.CharField(max_length=10, db_column='dloc', verbose_name='部门所在地')
+       no = models.IntegerField(primary_key=True, db_column='dno', verbose_name='部門編號')
+       name = models.CharField(max_length=20, db_column='dname', verbose_name='部門名稱')
+       location = models.CharField(max_length=10, db_column='dloc', verbose_name='部門所在地')
    
        class Meta:
            db_table = 'tb_dept'
    
    
    class Emp(models.Model):
-       """员工类"""
+       """員工類"""
        
-       no = models.IntegerField(primary_key=True, db_column='eno', verbose_name='员工编号')
-       name = models.CharField(max_length=20, db_column='ename', verbose_name='员工姓名')
-       job = models.CharField(max_length=10, verbose_name='职位')
-       # 自参照完整性多对一外键关联
-       mgr = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='主管编号')
+       no = models.IntegerField(primary_key=True, db_column='eno', verbose_name='員工編號')
+       name = models.CharField(max_length=20, db_column='ename', verbose_name='員工姓名')
+       job = models.CharField(max_length=10, verbose_name='職位')
+       # 自參照完整性多對一外來鍵關聯
+       mgr = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='主管編號')
        sal = models.DecimalField(max_digits=7, decimal_places=2, verbose_name='月薪')
-       comm = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='补贴')
-       dept = models.ForeignKey(Dept, db_column='dno', on_delete=models.PROTECT, verbose_name='所在部门')
+       comm = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='補貼')
+       dept = models.ForeignKey(Dept, db_column='dno', on_delete=models.PROTECT, verbose_name='所在部門')
    
        class Meta:
            db_table = 'tb_emp'
    
    
    ```
-   > 说明：上面定义模型时使用了字段类及其属性，其中IntegerField对应数据库中的integer类型，CharField对应数据库的varchar类型，DecimalField对应数据库的decimal类型，ForeignKey用来建立多对一外键关联。字段属性primary_key用于设置主键，max_length用来设置字段的最大长度，db_column用来设置数据库中与字段对应的列，verbose_name则设置了Django后台管理系统中该字段显示的名称。如果对这些东西感到很困惑也不要紧，文末提供了字段类、字段属性、元数据选项等设置的相关说明，不清楚的读者可以稍后查看对应的参考指南。
+   > 說明：上面定義模型時使用了欄位類及其屬性，其中IntegerField對應資料庫中的integer型別，CharField對應資料庫的varchar型別，DecimalField對應資料庫的decimal型別，ForeignKey用來建立多對一外來鍵關聯。欄位屬性primary_key用於設定主鍵，max_length用來設定欄位的最大長度，db_column用來設定資料庫中與欄位對應的列，verbose_name則設定了Django後臺管理系統中該欄位顯示的名稱。如果對這些東西感到很困惑也不要緊，文末提供了欄位類、欄位屬性、元資料選項等設定的相關說明，不清楚的讀者可以稍後檢視對應的參考指南。
 
-5. 通过模型创建数据表。
+5. 通過模型建立資料表。
 
    ```Shell
    (venv)$ cd ..
@@ -149,13 +149,13 @@
      Applying hrs.0001_initial... OK
    ```
 
-   执行完数据迁移操作之后，可以在通过图形化的MySQL客户端工具查看到E-R图（实体关系图）。
+   執行完資料遷移操作之後，可以在通過圖形化的MySQL客戶端工具檢視到E-R圖（實體關係圖）。
 
    ![](./res/er-graph.png)
 
-### 在后台管理模型
+### 在後臺管理模型
 
-1. 创建超级管理员账号。
+1. 建立超級管理員賬號。
 
    ```Shell
    (venv)$ python manage.py createsuperuser
@@ -166,23 +166,23 @@
    Superuser created successfully.
    ```
 
-2. 启动Web服务器，登录后台管理系统。
+2. 啟動Web伺服器，登入後臺管理系統。
 
    ```Shell
    (venv)$ python manage.py runserver
    ```
 
-   访问<http://127.0.0.1:8000/admin>，会来到如下图所示的登录界面。
+   訪問<http://127.0.0.1:8000/admin>，會來到如下圖所示的登入介面。
 
    ![](./res/admin-login.png)
 
-   登录后进入管理员操作平台。
+   登入後進入管理員操作平臺。
 
    ![](./res/admin-welcome.png)
 
-   至此我们还没有看到之前创建的模型类，需要在应用的admin.py文件中模型进行注册。
+   至此我們還沒有看到之前建立的模型類，需要在應用的admin.py檔案中模型進行註冊。
 
-3. 注册模型类。
+3. 註冊模型類。
 
    ```Shell
    (venv)$ cd hrs
@@ -199,29 +199,29 @@
    
    ```
 
-   注册模型类后，就可以在后台管理系统中看到它们。
+   註冊模型類後，就可以在後臺管理系統中看到它們。
 
    ![](./res/admin-model.png)
 
-4. 对模型进行CRUD操作。
+4. 對模型進行CRUD操作。
 
-   可以在管理员平台对模型进行C（新增）R（查看）U（更新）D（删除）操作，如下图所示。
+   可以在管理員平臺對模型進行C（新增）R（檢視）U（更新）D（刪除）操作，如下圖所示。
 
-   添加新的部门。
+   新增新的部門。
 
    ![](./res/admin-model-create.png)
 
-   查看所有部门。
+   檢視所有部門。
 
    ![](./res/admin-model-read.png)
 
-   更新和删除部门。
+   更新和刪除部門。
 
    ![](./res/admin-model-delete-and-update.png)
 
-5. 注册模型管理类。
+5. 註冊模型管理類。
 
-   再次修改admin.py文件，通过注册模型管理类，可以在后台管理系统中更好的管理模型。
+   再次修改admin.py檔案，通過註冊模型管理類，可以在後臺管理系統中更好的管理模型。
 
    ```Python
    from django.contrib import admin
@@ -250,48 +250,48 @@
 
    ![](./res/admin-model-emps.png)
 
-   为了更好的查看模型数据，可以为Dept和Emp两个模型类添加`__str__`魔法方法。
+   為了更好的檢視模型資料，可以為Dept和Emp兩個模型類新增`__str__`魔法方法。
 
    ```Python
    from django.db import models
    
    
    class Dept(models.Model):
-       """部门类"""
+       """部門類"""
        
-       # 此处省略上面的代码
+       # 此處省略上面的程式碼
        
        def __str__(self):
            return self.name
    
-       # 此处省略下面的代码
+       # 此處省略下面的程式碼
    
    
    class Emp(models.Model):
-       """员工类"""
+       """員工類"""
        
-       # 此处省略上面的代码
+       # 此處省略上面的程式碼
        
        mgr = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='直接主管')
        
-       # 此处省略下面的代码
+       # 此處省略下面的程式碼
        
-       # 此处省略上面的代码
+       # 此處省略上面的程式碼
    
        def __str__(self):
            return self.name
    
-       # 此处省略下面的代码
+       # 此處省略下面的程式碼
    
    ```
 
-   修改代码后刷新查看Emp模型的页面，效果如下图所示。
+   修改程式碼後重新整理檢視Emp模型的頁面，效果如下圖所示。
 
    ![](./res/admin-model-emps-modified.png)
 
 ### 使用ORM完成模型的CRUD操作
 
-在了解了Django提供的模型管理平台之后，我们来看看如何从代码层面完成对模型的CRUD（Create / Read / Update / Delete）操作。我们可以通过manage.py开启Shell交互式环境，然后使用Django内置的ORM框架对模型进行CRUD操作。
+在瞭解了Django提供的模型管理平臺之後，我們來看看如何從程式碼層面完成對模型的CRUD（Create / Read / Update / Delete）操作。我們可以通過manage.py開啟Shell互動式環境，然後使用Django內建的ORM框架對模型進行CRUD操作。
 
 ```Shell
 (venv)$ cd ..
@@ -308,7 +308,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 ```Shell
 >>>
 >>> from hrs.models import Dept, Emp
->>> dept = Dept(40, '研发2部', '深圳')
+>>> dept = Dept(40, '研發2部', '深圳')
 >>> dept.save()
 ```
 
@@ -316,208 +316,208 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 ```Shell
 >>>
->>> dept.name = '研发3部'
+>>> dept.name = '研發3部'
 >>> dept.save()
 ```
 
-#### 查询
+#### 查詢
 
-查询所有对象。
+查詢所有物件。
 
 ```Shell
 >>>
 >>> Dept.objects.all()
-<QuerySet [<Dept: 研发1部>, <Dept: 销售1部>, <Dept: 运维1部>, <Dept: 研发3部>]>
+<QuerySet [<Dept: 研發1部>, <Dept: 銷售1部>, <Dept: 運維1部>, <Dept: 研發3部>]>
 ```
 
-过滤数据。
+過濾資料。
 
 ```Shell
 >>> 
->>> Dept.objects.filter(name='研发3部') # 查询部门名称为“研发3部”的部门
-<QuerySet [<Dept: 研发3部>]>
+>>> Dept.objects.filter(name='研發3部') # 查詢部門名稱為“研發3部”的部門
+<QuerySet [<Dept: 研發3部>]>
 >>>
->>> Dept.objects.filter(name__contains='研发') # 查询部门名称包含“研发”的部门(模糊查询)
-<QuerySet [<Dept: 研发1部>, <Dept: 研发3部>]>
+>>> Dept.objects.filter(name__contains='研發') # 查詢部門名稱包含“研發”的部門(模糊查詢)
+<QuerySet [<Dept: 研發1部>, <Dept: 研發3部>]>
 >>>
->>> Dept.objects.filter(no__gt=10).filter(no__lt=40) # 查询部门编号大于10小于40的部门
-<QuerySet [<Dept: 销售1部>, <Dept: 运维1部>]>
+>>> Dept.objects.filter(no__gt=10).filter(no__lt=40) # 查詢部門編號大於10小於40的部門
+<QuerySet [<Dept: 銷售1部>, <Dept: 運維1部>]>
 ```
 
-查询单个对象。
+查詢單個物件。
 
 ```Shell
 >>> 
 >>> Dept.objects.get(pk=10)
-<Dept: 研发1部>
+<Dept: 研發1部>
 >>> Dept.objects.get(no=20)
-<Dept: 销售1部>
+<Dept: 銷售1部>
 >>> Dept.objects.get(no__exact=30)
-<Dept: 运维1部>
+<Dept: 運維1部>
 ```
 
-排序数据。
+排序資料。
 
 ```Shell
 >>>
->>> Dept.objects.order_by('no') # 查询所有部门按部门编号升序排列
-<QuerySet [<Dept: 研发1部>, <Dept: 销售1部>, <Dept: 运维1部>, <Dept: 研发3部>]>
->>> Dept.objects.order_by('-no') # 查询所有部门按部门编号降序排列
-<QuerySet [<Dept: 研发3部>, <Dept: 运维1部>, <Dept: 销售1部>, <Dept: 研发1部>]>
+>>> Dept.objects.order_by('no') # 查詢所有部門按部門編號升序排列
+<QuerySet [<Dept: 研發1部>, <Dept: 銷售1部>, <Dept: 運維1部>, <Dept: 研發3部>]>
+>>> Dept.objects.order_by('-no') # 查詢所有部門按部門編號降序排列
+<QuerySet [<Dept: 研發3部>, <Dept: 運維1部>, <Dept: 銷售1部>, <Dept: 研發1部>]>
 ```
 
-切片数据。
+切片資料。
 
 ```Shell
 >>>
->>> Dept.objects.order_by('no')[0:2] # 按部门编号排序查询1~2部门
-<QuerySet [<Dept: 研发1部>, <Dept: 销售1部>]>
->>> Dept.objects.order_by('no')[2:4] # 按部门编号排序查询3~4部门
-<QuerySet [<Dept: 运维1部>, <Dept: 研发3部>]>
+>>> Dept.objects.order_by('no')[0:2] # 按部門編號排序查詢1~2部門
+<QuerySet [<Dept: 研發1部>, <Dept: 銷售1部>]>
+>>> Dept.objects.order_by('no')[2:4] # 按部門編號排序查詢3~4部門
+<QuerySet [<Dept: 運維1部>, <Dept: 研發3部>]>
 ```
 
-高级查询。
+高階查詢。
 
 ```Shell
 >>>
->>> Emp.objects.filter(dept__no=10) # 根据部门编号查询该部门的员工
-<QuerySet [<Emp: 乔峰>, <Emp: 张无忌>, <Emp: 张三丰>]>
->>> Emp.objects.filter(dept__name__contains='销售') # 查询名字包含“销售”的部门的员工
-<QuerySet [<Emp: 黄蓉>]>
->>> Dept.objects.get(pk=10).emp_set.all() # 通过部门反查部门所有的员工
-<QuerySet [<Emp: 乔峰>, <Emp: 张无忌>, <Emp: 张三丰>]>
+>>> Emp.objects.filter(dept__no=10) # 根據部門編號查詢該部門的員工
+<QuerySet [<Emp: 喬峰>, <Emp: 張無忌>, <Emp: 張三丰>]>
+>>> Emp.objects.filter(dept__name__contains='銷售') # 查詢名字包含“銷售”的部門的員工
+<QuerySet [<Emp: 黃蓉>]>
+>>> Dept.objects.get(pk=10).emp_set.all() # 通過部門反查部門所有的員工
+<QuerySet [<Emp: 喬峰>, <Emp: 張無忌>, <Emp: 張三丰>]>
 ```
 
-> 说明：由于员工与部门之间存在外键关联，所以也能通过部门反向查询该部门的员工（从一对多关系中“一”的一方查询“多”的一方），默认情况下反查属性名是`类名小写_set`（例子中的`emp_set`），当然也可以在创建模型时通过`related_name`指定反查属性的名字。
+> 說明：由於員工與部門之間存在外來鍵關聯，所以也能通過部門反向查詢該部門的員工（從一對多關係中“一”的一方查詢“多”的一方），預設情況下反查屬性名是`類名小寫_set`（例子中的`emp_set`），當然也可以在建立模型時通過`related_name`指定反查屬性的名字。
 
-#### 删除
+#### 刪除
 
 ```Shell
 
 ```
 
-最后，我们通过上面掌握的知识来实现部门展示以及根据部门获取部门对应员工信息的功能，效果如下图所示，对应的代码可以访问<>。
+最後，我們通過上面掌握的知識來實現部門展示以及根據部門獲取部門對應員工資訊的功能，效果如下圖所示，對應的程式碼可以訪問<>。
 
-### Django模型最佳实践
+### Django模型最佳實踐
 
-1. 正确的模型命名和关系字段命名。
-2. 设置适当的related_name属性。
+1. 正確的模型命名和關係欄位命名。
+2. 設定適當的related_name屬性。
 3. 用OneToOneField代替ForeignKeyField(unique=True)。
-4. 通过迁移操作来添加模型。
-5. 用NoSQL来应对需要降低范式级别的场景。
-6. 如果布尔类型可以为空要使用NullBooleanField。
-7. 在模型中放置业务逻辑。
+4. 通過遷移操作來新增模型。
+5. 用NoSQL來應對需要降低正規化級別的場景。
+6. 如果布林型別可以為空要使用NullBooleanField。
+7. 在模型中放置業務邏輯。
 8. 用ModelName.DoesNotExists取代ObjectDoesNotExists。
-9. 在数据库中不要出现无效数据。
-10. 不要对QuerySet调用len函数。
-11. 将QuerySet的exists()方法的返回值用于if条件。
-12. 用DecimalField来存储货币相关数据而不是FloatField。
-13. 定义\_\_str\_\_方法。
-14. 不要将数据文件放在同一个目录中。
+9. 在資料庫中不要出現無效資料。
+10. 不要對QuerySet呼叫len函式。
+11. 將QuerySet的exists()方法的返回值用於if條件。
+12. 用DecimalField來儲存貨幣相關資料而不是FloatField。
+13. 定義\_\_str\_\_方法。
+14. 不要將資料檔案放在同一個目錄中。
 
-> 说明：以上内容来自于STEELKIWI网站的[*Best Practice working with Django models in Python*](https://steelkiwi.com/blog/best-practices-working-django-models-python/)，有兴趣的小伙伴可以阅读原文。
+> 說明：以上內容來自於STEELKIWI網站的[*Best Practice working with Django models in Python*](https://steelkiwi.com/blog/best-practices-working-django-models-python/)，有興趣的小夥伴可以閱讀原文。
 
-### 模型定义参考
+### 模型定義參考
 
-#### 字段
+#### 欄位
 
-对字段名称的限制
+對欄位名稱的限制
 
-- 字段名不能是Python的保留字，否则会导致语法错误
-- 字段名不能有多个连续下划线，否则影响ORM查询操作
+- 欄位名不能是Python的保留字，否則會導致語法錯誤
+- 欄位名不能有多個連續下劃線，否則影響ORM查詢操作
 
-Django模型字段类
+Django模型欄位類
 
-| 字段类                |  说明                                                         |
+| 欄位類                |  說明                                                         |
 | --------------------- | ------------------------------------------------------------ |
-| AutoField             |自增ID字段                                                   |
-| BigIntegerField       |64位有符号整数                                               |
-| BinaryField           | 存储二进制数据的字段，对应Python的bytes类型                  |
-| BooleanField          | 存储True或False                                              |
-| CharField             | 长度较小的字符串                                             |
-| DateField             | 存储日期，有auto_now和auto_now_add属性                       |
-| DateTimeField         | 存储日期和日期，两个附加属性同上                             |
-| DecimalField          |存储固定精度小数，有max_digits（有效位数）和decimal_places（小数点后面）两个必要的参数 |
-| DurationField         |存储时间跨度                                                 |
-| EmailField            | 与CharField相同，可以用EmailValidator验证                    |
-| FileField             | 文件上传字段                                                 |
-| FloatField            | 存储浮点数                                                   |
-| ImageField            | 其他同FileFiled，要验证上传的是不是有效图像                  |
-| IntegerField          | 存储32位有符号整数。                                         |
-| GenericIPAddressField | 存储IPv4或IPv6地址                                           |
-| NullBooleanField      | 存储True、False或null值                                      |
-| PositiveIntegerField  | 存储无符号整数（只能存储正数）                               |
-| SlugField             | 存储slug（简短标注）                                         |
-| SmallIntegerField     | 存储16位有符号整数                                           |
-| TextField             | 存储数据量较大的文本                                         |
-| TimeField             | 存储时间                                                     |
-| URLField              | 存储URL的CharField                                           |
-| UUIDField             | 存储全局唯一标识符                                           |
+| AutoField             |自增ID欄位                                                   |
+| BigIntegerField       |64位有符號整數                                               |
+| BinaryField           | 儲存二進位制資料的欄位，對應Python的bytes型別                  |
+| BooleanField          | 儲存True或False                                              |
+| CharField             | 長度較小的字串                                             |
+| DateField             | 儲存日期，有auto_now和auto_now_add屬性                       |
+| DateTimeField         | 儲存日期和日期，兩個附加屬性同上                             |
+| DecimalField          |儲存固定精度小數，有max_digits（有效位數）和decimal_places（小數點後面）兩個必要的引數 |
+| DurationField         |儲存時間跨度                                                 |
+| EmailField            | 與CharField相同，可以用EmailValidator驗證                    |
+| FileField             | 檔案上傳欄位                                                 |
+| FloatField            | 儲存浮點數                                                   |
+| ImageField            | 其他同FileFiled，要驗證上傳的是不是有效影象                  |
+| IntegerField          | 儲存32位有符號整數。                                         |
+| GenericIPAddressField | 儲存IPv4或IPv6地址                                           |
+| NullBooleanField      | 儲存True、False或null值                                      |
+| PositiveIntegerField  | 儲存無符號整數（只能儲存正數）                               |
+| SlugField             | 儲存slug（簡短標註）                                         |
+| SmallIntegerField     | 儲存16位有符號整數                                           |
+| TextField             | 儲存資料量較大的文字                                         |
+| TimeField             | 儲存時間                                                     |
+| URLField              | 儲存URL的CharField                                           |
+| UUIDField             | 儲存全域性唯一識別符號                                           |
 
-#### 字段属性
+#### 欄位屬性
 
-通用字段属性
+通用欄位屬性
 
-| 选项           | 说明                                                         |
+| 選項           | 說明                                                         |
 | -------------- | ------------------------------------------------------------ |
-| null           | 数据库中对应的字段是否允许为NULL，默认为False                |
-| blank          | 后台模型管理验证数据时，是否允许为NULL，默认为False          |
-| choices        | 设定字段的选项，各元组中的第一个值是设置在模型上的值，第二值是人类可读的值 |
-| db_column      | 字段对应到数据库表中的列名，未指定时直接使用字段的名称       |
-| db_index       | 设置为True时将在该字段创建索引                               |
-| db_tablespace  | 为有索引的字段设置使用的表空间，默认为DEFAULT_INDEX_TABLESPACE |
-| default        | 字段的默认值                                                 |
-| editable       | 字段在后台模型管理或ModelForm中是否显示，默认为True          |
-| error_messages | 设定字段抛出异常时的默认消息的字典，其中的键包括null、blank、invalid、invalid_choice、unique和unique_for_date |
-| help_text      | 表单小组件旁边显示的额外的帮助文本。                         |
-| primary_key    | 将字段指定为模型的主键，未指定时会自动添加AutoField用于主键，只读。 |
-| unique         | 设置为True时，表中字段的值必须是唯一的                       |
-| verbose_name   | 字段在后台模型管理显示的名称，未指定时使用字段的名称         |
+| null           | 資料庫中對應的欄位是否允許為NULL，預設為False                |
+| blank          | 後臺模型管理驗證資料時，是否允許為NULL，預設為False          |
+| choices        | 設定欄位的選項，各元組中的第一個值是設定在模型上的值，第二值是人類可讀的值 |
+| db_column      | 欄位對應到資料庫表中的列名，未指定時直接使用欄位的名稱       |
+| db_index       | 設定為True時將在該欄位建立索引                               |
+| db_tablespace  | 為有索引的欄位設定使用的表空間，預設為DEFAULT_INDEX_TABLESPACE |
+| default        | 欄位的預設值                                                 |
+| editable       | 欄位在後臺模型管理或ModelForm中是否顯示，預設為True          |
+| error_messages | 設定欄位丟擲異常時的預設訊息的字典，其中的鍵包括null、blank、invalid、invalid_choice、unique和unique_for_date |
+| help_text      | 表單小元件旁邊顯示的額外的幫助文字。                         |
+| primary_key    | 將欄位指定為模型的主鍵，未指定時會自動新增AutoField用於主鍵，只讀。 |
+| unique         | 設定為True時，表中欄位的值必須是唯一的                       |
+| verbose_name   | 欄位在後臺模型管理顯示的名稱，未指定時使用欄位的名稱         |
 
-ForeignKey属性
+ForeignKey屬性
 
-1. limit_choices_to：值是一个Q对象或返回一个Q对象，用于限制后台显示哪些对象。
-2. related_name：用于获取关联对象的关联管理器对象（反向查询），如果不允许反向，该属性应该被设置为`'+'`，或者以`'+'`结尾。
-3. to_field：指定关联的字段，默认关联对象的主键字段。
-4. db_constraint：是否为外键创建约束，默认值为True。
-5. on_delete：外键关联的对象被删除时对应的动作，可取的值包括django.db.models中定义的：
-   - CASCADE：级联删除。
-   - PROTECT：抛出ProtectedError异常，阻止删除引用的对象。
-   - SET_NULL：把外键设置为null，当null属性被设置为True时才能这么做。
-   - SET_DEFAULT：把外键设置为默认值，提供了默认值才能这么做。
+1. limit_choices_to：值是一個Q物件或返回一個Q物件，用於限制後臺顯示哪些物件。
+2. related_name：用於獲取關聯物件的關聯管理器物件（反向查詢），如果不允許反向，該屬性應該被設定為`'+'`，或者以`'+'`結尾。
+3. to_field：指定關聯的欄位，預設關聯物件的主鍵欄位。
+4. db_constraint：是否為外來鍵建立約束，預設值為True。
+5. on_delete：外來鍵關聯的物件被刪除時對應的動作，可取的值包括django.db.models中定義的：
+   - CASCADE：級聯刪除。
+   - PROTECT：丟擲ProtectedError異常，阻止刪除引用的物件。
+   - SET_NULL：把外來鍵設定為null，當null屬性被設定為True時才能這麼做。
+   - SET_DEFAULT：把外來鍵設定為預設值，提供了預設值才能這麼做。
 
-ManyToManyField属性
+ManyToManyField屬性
 
-1. symmetrical：是否建立对称的多对多关系。
-2. through：指定维持多对多关系的中间表的Django模型。
-3. throughfields：定义了中间模型时可以指定建立多对多关系的字段。
-4. db_table：指定维持多对多关系的中间表的表名。
+1. symmetrical：是否建立對稱的多對多關係。
+2. through：指定維持多對多關係的中間表的Django模型。
+3. throughfields：定義了中間模型時可以指定建立多對多關係的欄位。
+4. db_table：指定維持多對多關係的中間表的表名。
 
-#### 模型元数据选项
+#### 模型元資料選項
 
-| 选项                  | 说明                                                         |
+| 選項                  | 說明                                                         |
 | --------------------- | ------------------------------------------------------------ |
-| abstract              | 设置为True时模型是抽象父类                                   |
-| app_label             | 如果定义模型的应用不在INSTALLED_APPS中可以用该属性指定       |
-| db_table              | 模型使用的数据表名称                                         |
-| db_tablespace         | 模型使用的数据表空间                                         |
-| default_related_name  | 关联对象回指这个模型时默认使用的名称，默认为<model_name>_set |
-| get_latest_by         | 模型中可排序字段的名称。                                     |
-| managed               | 设置为True时，Django在迁移中创建数据表并在执行flush管理命令时把表移除 |
-| order_with_respect_to | 标记对象为可排序的                                           |
-| ordering              | 对象的默认排序                                               |
-| permissions           | 创建对象时写入权限表的额外权限                               |
-| default_permissions   | 默认为`('add', 'change', 'delete')`                          |
-| unique_together       | 设定组合在一起时必须独一无二的字段名                         |
-| index_together        | 设定一起建立索引的多个字段名                                 |
-| verbose_name          | 为对象设定人类可读的名称                                     |
-| verbose_name_plural   | 设定对象的复数名称                                           |
+| abstract              | 設定為True時模型是抽象父類                                   |
+| app_label             | 如果定義模型的應用不在INSTALLED_APPS中可以用該屬性指定       |
+| db_table              | 模型使用的資料表名稱                                         |
+| db_tablespace         | 模型使用的資料表空間                                         |
+| default_related_name  | 關聯物件回指這個模型時預設使用的名稱，預設為<model_name>_set |
+| get_latest_by         | 模型中可排序欄位的名稱。                                     |
+| managed               | 設定為True時，Django在遷移中建立資料表並在執行flush管理命令時把表移除 |
+| order_with_respect_to | 標記物件為可排序的                                           |
+| ordering              | 物件的預設排序                                               |
+| permissions           | 建立物件時寫入許可權表的額外許可權                               |
+| default_permissions   | 預設為`('add', 'change', 'delete')`                          |
+| unique_together       | 設定組合在一起時必須獨一無二的欄位名                         |
+| index_together        | 設定一起建立索引的多個欄位名                                 |
+| verbose_name          | 為物件設定人類可讀的名稱                                     |
+| verbose_name_plural   | 設定物件的複數名稱                                           |
 
-### 数据库API参考
+### 資料庫API參考
 
 
 
-按字段查找可以用的条件：
+按欄位查詢可以用的條件：
 
 1. exact / iexact
 2. contains / icontains
@@ -530,5 +530,5 @@ ManyToManyField属性
 9. search
 10. regex / iregex
 
-跨关系查找
+跨關係查詢
 

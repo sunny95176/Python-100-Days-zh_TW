@@ -1,4 +1,4 @@
-## Django 2.x实战(09) - RESTful架构和应用(上)
+## Django 2.x實戰(09) - RESTful架構和應用(上)
 
 
 

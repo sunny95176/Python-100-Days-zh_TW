@@ -1,56 +1,56 @@
-## Day01 - 初识Python
+## Day01 - 初識Python
 
-### Python简介
+### Python簡介
 
-#### Python的历史
+#### Python的歷史
 
-1. 1989年圣诞节：Guido von Rossum开始写Python语言的编译器。
-2. 1991年2月：第一个Python编译器（同时也是解释器）诞生，它是用C语言实现的（后面又出现了Java和C#实现的版本Jython和IronPython，以及PyPy、Brython、Pyston等其他实现），可以调用C语言的库函数。在最早的版本中，Python已经提供了对“类”，“函数”，“异常处理”等构造块的支持，同时提供了“列表”和“字典”等核心数据类型，同时支持以模块为基础的拓展系统。
-3. 1994年1月：Python 1.0正式发布。
-4. 2000年10月16日：Python 2.0发布，增加了实现完整的[垃圾回收](https://zh.wikipedia.org/wiki/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8))，并且支持[Unicode](https://zh.wikipedia.org/wiki/Unicode)。与此同时，Python的整个开发过程更加透明，社区对开发进度的影响逐渐扩大，生态圈开始慢慢形成。
-5. 2008年12月3日：Python 3.0发布，此版不完全兼容之前的Python代码，不过很多新特性后来也被移植到旧的Python 2.6/2.7版本，因为目前还有公司在项目和运维中使用Python 2.x版本的代码。
+1. 1989年聖誕節：Guido von Rossum開始寫Python語言的編譯器。
+2. 1991年2月：第一個Python編譯器（同時也是直譯器）誕生，它是用C語言實現的（後面又出現了Java和C#實現的版本Jython和IronPython，以及PyPy、Brython、Pyston等其他實現），可以呼叫C語言的庫函式。在最早的版本中，Python已經提供了對“類”，“函式”，“異常處理”等構造塊的支援，同時提供了“列表”和“字典”等核心資料型別，同時支援以模組為基礎的拓展系統。
+3. 1994年1月：Python 1.0正式釋出。
+4. 2000年10月16日：Python 2.0釋出，增加了實現完整的[垃圾回收](https://zh.wikipedia.org/wiki/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8))，並且支援[Unicode](https://zh.wikipedia.org/wiki/Unicode)。與此同時，Python的整個開發過程更加透明，社群對開發進度的影響逐漸擴大，生態圈開始慢慢形成。
+5. 2008年12月3日：Python 3.0釋出，此版不完全相容之前的Python程式碼，不過很多新特性後來也被移植到舊的Python 2.6/2.7版本，因為目前還有公司在專案和運維中使用Python 2.x版本的程式碼。
 
-目前我们使用的Python 3.6.x的版本是在2016年的12月23日发布的，Python的版本号分为三段，形如A.B.C。其中A表示大版本号，一般当整体重写，或出现不向后兼容的改变时，增加A；B表示功能更新，出现新功能时增加B；C表示小的改动（如修复了某个Bug），只要有修改就增加C。如果对Python的历史感兴趣，可以查看一篇名为[《Python简史》](http://www.cnblogs.com/vamei/archive/2013/02/06/2892628.html)的博文。
+目前我們使用的Python 3.6.x的版本是在2016年的12月23日釋出的，Python的版本號分為三段，形如A.B.C。其中A表示大版本號，一般當整體重寫，或出現不向後相容的改變時，增加A；B表示功能更新，出現新功能時增加B；C表示小的改動（如修復了某個Bug），只要有修改就增加C。如果對Python的歷史感興趣，可以檢視一篇名為[《Python簡史》](http://www.cnblogs.com/vamei/archive/2013/02/06/2892628.html)的博文。
 
-#### Python的优缺点
+#### Python的優缺點
 
-Python的优点很多，简单的可以总结为以下几点。
+Python的優點很多，簡單的可以總結為以下幾點。
 
-1. 简单和明确，做一件事只有一种方法。
-2. 学习曲线低，与其他很多语言比上手更容易。
-3. 开放源代码，拥有强大的社区和生态圈。
-4. 解释型语言，完美的平台可移植性。
-5. 支持两种主流的编程范式，可以使用面向对象和函数式编程。
-6. 可扩展性和可嵌入性，可以调用C/C++代码也可以在C/C++中调用。
-7. 代码规范程度高，可读性强，适合有代码洁癖和强迫症的人群。
+1. 簡單和明確，做一件事只有一種方法。
+2. 學習曲線低，與其他很多語言比上手更容易。
+3. 開放原始碼，擁有強大的社群和生態圈。
+4. 解釋型語言，完美的平臺可移植性。
+5. 支援兩種主流的程式設計正規化，可以使用面向物件和函數語言程式設計。
+6. 可擴充套件性和可嵌入性，可以呼叫C/C++程式碼也可以在C/C++中呼叫。
+7. 程式碼規範程度高，可讀性強，適合有程式碼潔癖和強迫症的人群。
 
-Python的缺点主要集中在以下几点。
+Python的缺點主要集中在以下幾點。
 
-1. 执行效率低下，因此计算密集型任务可以由C/C++编写。
-2. 代码无法加密，但是现在的公司很多都不是卖软件而是卖服务，这个问题慢慢会淡化。
-3. 在开发时可以选择的框架太多，有选择的地方就有错误。
+1. 執行效率低下，因此計算密集型任務可以由C/C++編寫。
+2. 程式碼無法加密，但是現在的公司很多都不是賣軟體而是賣服務，這個問題慢慢會淡化。
+3. 在開發時可以選擇的框架太多，有選擇的地方就有錯誤。
 
-#### Python的应用领域
+#### Python的應用領域
 
-目前Python在云基础设施、DevOps、网络爬虫开发、数据分析挖掘、机器学习等领域都有着广泛的应用，因此也产生了服务器开发、数据接口开发、自动化运维、科学计算和数据可视化、聊天机器人开发、图像识别和处理等一系列的职位。
+目前Python在雲基礎設施、DevOps、網路爬蟲開發、資料分析挖掘、機器學習等領域都有著廣泛的應用，因此也產生了伺服器開發、資料介面開發、自動化運維、科學計算和資料視覺化、聊天機器人開發、影象識別和處理等一系列的職位。
 
-### 搭建编程环境
+### 搭建程式設計環境
 
-#### Windows环境
+#### Windows環境
 
-可以在[Python的官方网站](https://www.python.org)下载到Python的Windows安装程序（exe文件），需要注意的是如果在Windows 7环境下安装需要先安装Service Pack 1补丁包（可以通过一些工具软件自动安装系统补丁的功能来安装），安装过程建议勾选“Add Python 3.6 to PATH”（将Python 3.6添加到PATH环境变量）并选择自定义安装，在设置“Optional Features”界面最好将“pip”、“tcl/tk”、“Python test suite”等项全部勾选上。强烈建议使用自定义的安装路径并保证路径中没有中文。安装完成会看到“Setup was successful”的提示，但是在启动Python环境时可能会因为缺失一些动态链接库文件而导致Python解释器无法运行，常见的问题主要是api-ms-win-crt\*.dll缺失以及更新DirectX之后导致某些动态链接库文件缺失，前者可以参照[《api-ms-win-crt\*.dll缺失原因分析和解决方法》]()一文讲解的方法进行处理或者直接在[微软官网](https://www.microsoft.com/zh-cn/download/details.aspx?id=48145)下载Visual C++ Redistributable for Visual Studio 2015文件进行修复，后者可以下载一个DirectX修复工具进行修复。
+可以在[Python的官方網站](https://www.python.org)下載到Python的Windows安裝程式（exe檔案），需要注意的是如果在Windows 7環境下安裝需要先安裝Service Pack 1補丁包（可以通過一些工具軟體自動安裝系統補丁的功能來安裝），安裝過程建議勾選“Add Python 3.6 to PATH”（將Python 3.6新增到PATH環境變數）並選擇自定義安裝，在設定“Optional Features”介面最好將“pip”、“tcl/tk”、“Python test suite”等項全部勾選上。強烈建議使用自定義的安裝路徑並保證路徑中沒有中文。安裝完成會看到“Setup was successful”的提示，但是在啟動Python環境時可能會因為缺失一些動態連結庫檔案而導致Python直譯器無法執行，常見的問題主要是api-ms-win-crt\*.dll缺失以及更新DirectX之後導致某些動態連結庫檔案缺失，前者可以參照[《api-ms-win-crt\*.dll缺失原因分析和解決方法》]()一文講解的方法進行處理或者直接在[微軟官網](https://www.microsoft.com/zh-cn/download/details.aspx?id=48145)下載Visual C++ Redistributable for Visual Studio 2015檔案進行修復，後者可以下載一個DirectX修復工具進行修復。
 
-#### Linux环境
+#### Linux環境
 
-Linux环境自带了Python 2.x版本，但是如果要更新到3.x的版本，可以在[Python的官方网站](https://www.python.org)下载Python的源代码并通过源代码构建安装的方式进行安装，具体的步骤如下所示。
+Linux環境自帶了Python 2.x版本，但是如果要更新到3.x的版本，可以在[Python的官方網站](https://www.python.org)下載Python的原始碼並通過原始碼構建安裝的方式進行安裝，具體的步驟如下所示。
 
-安装依赖库（因为没有这些依赖库可能在源代码构件安装时因为缺失底层依赖库而失败）。
+安裝依賴庫（因為沒有這些依賴庫可能在原始碼構件安裝時因為缺失底層依賴庫而失敗）。
 
 ```Shell
 yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
 ```
 
-下载Python源代码并解压缩到指定目录。
+下載Python原始碼並解壓縮到指定目錄。
 
 ```Shell
 wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
@@ -58,7 +58,7 @@ xz -d Python-3.6.1.tar.xz
 tar -xvf Python-3.6.1.tar
 ```
 
-切换至Python源代码目录并执行下面的命令进行配置和安装。
+切換至Python原始碼目錄並執行下面的命令進行配置和安裝。
 
 ```Shell
 cd Python-3.6.1
@@ -66,27 +66,27 @@ cd Python-3.6.1
 make && make install
 ```
 
-创建软链接，这样就可以直接通过python3直接启动Python解释器。
+建立軟連結，這樣就可以直接通過python3直接啟動Python直譯器。
 
 ```Shell
 ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3
 ```
 
 
-#### MacOS环境
+#### MacOS環境
 
-MacOS也是自带了Python 2.x版本的，可以通过[Python的官方网站](https://www.python.org)提供的安装文件（pkg文件）安装3.x的版本。默认安装完成后，可以通过在终端执行python命令来启动2.x版本的Python解释器，可以通过执行python3命令来启动3.x版本的Python解释器，当然也可以通过重新设置软链接来修改启动Python解释器的命令。
+MacOS也是自帶了Python 2.x版本的，可以通過[Python的官方網站](https://www.python.org)提供的安裝檔案（pkg檔案）安裝3.x的版本。預設安裝完成後，可以通過在終端執行python命令來啟動2.x版本的Python直譯器，可以通過執行python3命令來啟動3.x版本的Python直譯器，當然也可以通過重新設定軟連結來修改啟動Python直譯器的命令。
 
-### 从终端运行Python程序
+### 從終端執行Python程式
 
-#### 确认Python的版本
+#### 確認Python的版本
 
-在终端或命令行提示符中键入下面的命令。
+在終端或命令列提示符中鍵入下面的命令。
 
 ```Shell
 python --version
 ```
-当然也可以先输入python进入交互式环境，再执行以下的代码检查Python的版本。
+當然也可以先輸入python進入互動式環境，再執行以下的程式碼檢查Python的版本。
 
 ```Python
 import sys
@@ -95,37 +95,37 @@ print(sys.version_info)
 print(sys.version)
 ```
 
-#### 编写Python源代码
+#### 編寫Python原始碼
 
-可以用文本编辑工具（推荐使用Sublime、Atom、TextMate、VSCode等高级文本编辑工具）编写Python源代码并将其命名为hello.py保存起来，代码内容如下所示。
+可以用文字編輯工具（推薦使用Sublime、Atom、TextMate、VSCode等高階文字編輯工具）編寫Python原始碼並將其命名為hello.py儲存起來，程式碼內容如下所示。
 
 ```Python
 print('hello, world!')
 ```
 
-#### 运行程序
+#### 執行程式
 
-切换到源代码所在的目录并执行下面的命令，看看屏幕上是否输出了"hello, world!"。
+切換到原始碼所在的目錄並執行下面的命令，看看螢幕上是否輸出了"hello, world!"。
 
 ```Shell
 python hello.py
 ```
 
-### 代码中的注释
+### 程式碼中的註釋
 
-注释是编程语言的一个重要组成部分，用于在源代码中解释代码的作用从而增强程序的可读性和可维护性，当然也可以将源代码中不需要参与运行的代码段通过注释来去掉，这一点在调试程序的时候经常用到。注释在随源代码进入预处理器或编译时会被移除，不会在目标代码中保留也不会影响程序的执行结果。
+註釋是程式語言的一個重要組成部分，用於在原始碼中解釋程式碼的作用從而增強程式的可讀性和可維護性，當然也可以將原始碼中不需要參與執行的程式碼段通過註釋來去掉，這一點在除錯程式的時候經常用到。註釋在隨原始碼進入前處理器或編譯時會被移除，不會在目的碼中保留也不會影響程式的執行結果。
 
-1. 单行注释 - 以#和空格开头的部分
-2. 多行注释 - 三个引号开头，三个引号结尾
+1. 單行註釋 - 以#和空格開頭的部分
+2. 多行註釋 - 三個引號開頭，三個引號結尾
 
 ```Python
 """
 
-第一个Python程序 - hello, world!
-向伟大的Dennis M. Ritchie先生致敬
+第一個Python程式 - hello, world!
+向偉大的Dennis M. Ritchie先生致敬
 
 Version: 0.1
-Author: 骆昊
+Author: 駱昊
 Date: 2018-02-26
 
 """
@@ -137,17 +137,17 @@ print('hello', 'world', sep=', ', end='!')
 print('goodbye, world', end='!\n')
 ```
 
-### 其他工具介绍
+### 其他工具介紹
 
-#### IDLE - 自带的集成开发工具
+#### IDLE - 自帶的整合開發工具
 
-IDLE是安装Python环境时自带的集成开发工具，如下图所示。但是由于IDLE的用户体验并不是那么好所以很少在实际开发中被采用。
+IDLE是安裝Python環境時自帶的整合開發工具，如下圖所示。但是由於IDLE的使用者體驗並不是那麼好所以很少在實際開發中被採用。
 
 ![](./res/python-idle.png)
 
-#### IPython - 更好的交互式编程工具
+#### IPython - 更好的互動式程式設計工具
 
-IPython是一种基于Python的交互式解释器。相较于原生的Python Shell，IPython提供了更为强大的编辑和交互功能。可以通过Python的包管理工具pip安装IPython和Jupyter，具体的操作如下所示。
+IPython是一種基於Python的互動式直譯器。相較於原生的Python Shell，IPython提供了更為強大的編輯和互動功能。可以通過Python的包管理工具pip安裝IPython和Jupyter，具體的操作如下所示。
 
 ```Shell
 pip install ipython jupyter
@@ -159,11 +159,11 @@ pip install ipython jupyter
 python -m pip install ipython jupyter
 ```
 
-安装成功后，可以通过下面的ipython命令启动IPython，如下图所示。
+安裝成功後，可以通過下面的ipython命令啟動IPython，如下圖所示。
 
 ![](./res/python-ipython.png)
 
-当然我们也可以通过Jupyter运行名为notebook的项目在浏览器窗口中进行交互式操作。
+當然我們也可以通過Jupyter執行名為notebook的專案在瀏覽器視窗中進行互動式操作。
 
 ```Shell
 jupyter notebook
@@ -173,13 +173,13 @@ jupyter notebook
 
 ![](./res/python-jupyter-2.png)
 
-#### Sublime - 文本编辑神器
+#### Sublime - 文字編輯神器
 
 ![](./res/python-sublime.png)
 
-- 首先可以通过[官方网站](https://www.sublimetext.com/)下载安装程序安装Sublime 3或Sublime 2。
+- 首先可以通過[官方網站](https://www.sublimetext.com/)下載安裝程式安裝Sublime 3或Sublime 2。
 
-- 安装包管理工具。通过快捷键Ctrl+`或者在View菜单中选择Show Console打开控制台，输入下面的代码。
+- 安裝包管理工具。通過快捷鍵Ctrl+`或者在View選單中選擇Show Console開啟控制檯，輸入下面的程式碼。
 
   - Sublime 3
 
@@ -193,23 +193,23 @@ jupyter notebook
   import  urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_packages_path();os.makedirs(ipp)ifnotos.path.exists(ipp)elseNone;urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler()));open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read());print('Please restart Sublime Text to finish installation')
   ```
 
-- 安装插件。通过Preference菜单的Package Control或快捷键Ctrl+Shift+P打开命令面板，在面板中输入Install Package就可以找到安装插件的工具，然后再查找需要的插件。我们推荐大家安装以下几个插件。
+- 安裝外掛。通過Preference選單的Package Control或快捷鍵Ctrl+Shift+P開啟命令面板，在面板中輸入Install Package就可以找到安裝外掛的工具，然後再查詢需要的外掛。我們推薦大家安裝以下幾個外掛。
 
-  - SublimeCodeIntel - 代码自动补全工具插件
-  - Emmet - 前端开发代码模板插件
-  - Git - 版本控制工具插件
-  - Python PEP8 Autoformat - PEP8规范自动格式化插件
-  - ConvertToUTF8 - 将本地编码转换为UTF-8
+  - SublimeCodeIntel - 程式碼自動補全工具外掛
+  - Emmet - 前端開發程式碼模板外掛
+  - Git - 版本控制工具外掛
+  - Python PEP8 Autoformat - PEP8規範自動格式化外掛
+  - ConvertToUTF8 - 將本地編碼轉換為UTF-8
 
-#### PyCharm - Python开发神器
+#### PyCharm - Python開發神器
 
-PyCharm的安装、配置和使用我们在后面会进行介绍。
+PyCharm的安裝、配置和使用我們在後面會進行介紹。
 
 ![](./res/python-pycharm.png)
 
-### 练习
+### 練習
 
-1. 在Python交互环境中下面的代码查看结果并将内容翻译成中文。
+1. 在Python互動環境中下面的程式碼檢視結果並將內容翻譯成中文。
 
     ```Python
     import this
@@ -235,7 +235,7 @@ PyCharm的安装、配置和使用我们在后面会进行介绍。
     Namespaces are one honking great idea -- let's do more of those!
     ```
 
-2. 学习使用turtle在屏幕上绘制图形。
+2. 學習使用turtle在螢幕上繪製圖形。
 
     ```Python
     import turtle

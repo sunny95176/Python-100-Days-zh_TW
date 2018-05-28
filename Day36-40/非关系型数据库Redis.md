@@ -1,14 +1,14 @@
-## Redis实战
+## Redis實戰
 
 ### NoSQL概述
 
 
 
-### Redis安装和配置
+### Redis安裝和配置
 
 
 
-### Redis的数据类型
+### Redis的資料型別
 
 
 
